@@ -1,21 +1,28 @@
 version: '3'
 services:
-    web:
+    seeddms:
+        container_name: seeddms
+        restart: unless-stopped
         build: .
         ports:
             - 8080:80
-        links:
-            - db
+        depends_on:
+            - mariadb
         volumes:
-            - data_volume:/var/www/seeddms/data
-            - conf_volume:/var/www/seeddms/conf
-            - ext_volume:/var/www/seeddms/www/ext
-    db:
-        image: postgres
-        environment:
-            - POSTGRES_PASSWORD=seeddms
-            - POSTGRES_USER=seeddms
+            - seeddms_data:/var/www/seeddms/data
+            - seeddms_conf:/var/www/seeddms/conf
+            - seeddms_ext:/var/www/seeddms/www/ext
+    mariadb:
+      container_name: mariadb
+      image: lscr.io/linuxserver/mariadb
+      restart: unless-stopped
+      environment:
+        MYSQL_ROOT_PASSWORD: sql4services
+        MARIADB_DATABASE: seeddms
+      volumes:
+      - mariadb_data:/config
 volumes:
-    data_volume:
-    conf_volume:
-    ext_volume:
+    seeddms_data:
+    seeddms_conf:
+    seeddms_ext:
+    mariadb_data:
