@@ -8,6 +8,11 @@ RUN docker-php-ext-install gd mysqli pdo pdo_mysql zip
 RUN pear channel-update pear.php.net
 RUN pear install Log
 RUN pecl install zip
+RUN apt update && \
+    apt upgrade && \
+    apt install -y libmagickwand-dev --no-install-recommends && \
+    pecl install imagick && docker-php-ext-enable imagick && \
+    rm -rf /var/lib/apt/lists/*
 
 # Get seeddms
 COPY seeddms-quickstart-6.0.17.1.tar.gz /tmp/
