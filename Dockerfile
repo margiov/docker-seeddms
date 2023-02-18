@@ -9,7 +9,6 @@ RUN pear channel-update pear.php.net
 RUN pear install Log
 RUN pecl install zip
 RUN apt update && \
-    apt upgrade && \
     apt install -y libmagickwand-dev --no-install-recommends && \
     pecl install imagick && docker-php-ext-enable imagick && \
     rm -rf /var/lib/apt/lists/*
