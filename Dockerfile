@@ -15,7 +15,7 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # Get seeddms
-COPY seeddms-quickstart-6.0.17.1/seeddms60x /var/www/seeddms
+COPY seeddms-quickstart-6.0.22/seeddms60x /var/www/seeddms
 RUN touch /var/www/seeddms/conf/ENABLE_INSTALL_TOOL
 
 # Copy settings-files
